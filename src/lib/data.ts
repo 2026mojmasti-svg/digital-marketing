@@ -44,6 +44,7 @@ export const CATEGORIES: Category[] = [
     tone: ["#8C7A5E", "#4A3F2D"],
     garment: "sweater",
     pattern: "rib",
+    photo: "/images/crochet-cardigan-granny-square.jpg",
   },
   {
     slug: "accessories",
@@ -100,7 +101,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.7,
     reviewCount: 3,
     reviews: [
-      { id: "r1", author: "M. Alvarez", rating: 5, title: "Worth every rupee", body: "The wool is substantial without being stiff. Runs true to size.", date: "2026-06-02", avatarSeed: 1 },
+      { id: "r1", author: "M. Alvarez", rating: 5, title: "Worth every rupee", body: "The wool is substantial without being stiff. Runs true to size.", date: "2026-06-02", avatarSeed: 1, avatarPhoto: "/images/portrait-woman-striped-shirt-laptop.jpg" },
       { id: "r2", author: "J. Okafor", rating: 4, title: "Beautiful cut", body: "Slightly long on me at 5'4\" but tailoring fixed it easily.", date: "2026-05-14", avatarSeed: 2 },
       { id: "r3", author: "R. Chen", rating: 5, title: "Editorial in real life", body: "Photographs exactly like it looks in person — rare.", date: "2026-04-29", avatarSeed: 3 },
     ],
@@ -204,7 +205,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 3,
     reviews: [
-      { id: "r10", author: "H. Voss", rating: 5, title: "Best sweater I own", body: "Softened up beautifully after one wash.", date: "2026-07-20", avatarSeed: 10 },
+      { id: "r10", author: "H. Voss", rating: 5, title: "Best sweater I own", body: "Softened up beautifully after one wash.", date: "2026-07-20", avatarSeed: 10, avatarPhoto: "/images/portrait-person-short-hair-outdoor.jpg" },
       { id: "r11", author: "C. Reyes", rating: 5, title: "True to size", body: "Chunky but not bulky. Layers well.", date: "2026-06-05", avatarSeed: 11 },
       { id: "r12", author: "D. Marsh", rating: 4.5, title: "Warm without overheating", body: "Great transitional-weather weight.", date: "2026-05-01", avatarSeed: 12 },
     ],
@@ -324,7 +325,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.5,
     reviewCount: 2,
     reviews: [
-      { id: "r20", author: "O. Girard", rating: 4, title: "Office to weekend", body: "Untucked with denim, tucked with trousers — both work.", date: "2026-05-22", avatarSeed: 20 },
+      { id: "r20", author: "O. Girard", rating: 4, title: "Office to weekend", body: "Untucked with denim, tucked with trousers — both work.", date: "2026-05-22", avatarSeed: 20, avatarPhoto: "/images/outfit-woman-striped-romper-seaside.jpg" },
       { id: "r21", author: "P. Nair", rating: 5, title: "Barely needs ironing", body: "Poplin holds its shape well.", date: "2026-04-11", avatarSeed: 21 },
     ],
   },
@@ -373,7 +374,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.6,
     reviewCount: 2,
     reviews: [
-      { id: "r24", author: "I. Wren", rating: 5, title: "Flattering on everyone I've recommended it to", body: "The wrap tie means it fits however you need it to.", date: "2026-05-18", avatarSeed: 24 },
+      { id: "r24", author: "I. Wren", rating: 5, title: "Flattering on everyone I've recommended it to", body: "The wrap tie means it fits however you need it to.", date: "2026-05-18", avatarSeed: 24, avatarPhoto: "/images/outfit-woman-navy-satin-dress.jpg" },
       { id: "r25", author: "T. Okonkwo", rating: 4, title: "Great travel dress", body: "Doesn't wrinkle in a suitcase.", date: "2026-04-02", avatarSeed: 25 },
     ],
   },
@@ -399,7 +400,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.8,
     reviewCount: 2,
     reviews: [
-      { id: "r26", author: "Z. Abara", rating: 5, title: "Stopped traffic, literally", body: "Wore this out for New Year's, best purchase of the year.", date: "2026-01-05", avatarSeed: 26 },
+      { id: "r26", author: "Z. Abara", rating: 5, title: "Stopped traffic, literally", body: "Wore this out for New Year's, best purchase of the year.", date: "2026-01-05", avatarSeed: 26, avatarPhoto: "/images/outfit-woman-pink-satin-dress.jpg" },
       { id: "r27", author: "C. Devereux", rating: 4.5, title: "Heavier than expected, in a good way", body: "Sequins are securely attached, nothing shedding.", date: "2025-12-20", avatarSeed: 27 },
     ],
   },
@@ -565,6 +566,7 @@ export const JOURNAL_POSTS: JournalPost[] = [
     tone: ["#8C7A5E", "#4A3F2D"],
     garment: "sweater",
     pattern: "rib",
+    photo: "/images/brown-knit-sweater-hanger.jpg",
     body: [
       "Layering is a sequencing problem before it's a styling one: base for warmth, mid for insulation, outer for weather.",
       "Start with the Cable-Knit Vest as your mid layer — cropped enough to disappear under the Quilted Field Jacket without adding bulk at the waist.",

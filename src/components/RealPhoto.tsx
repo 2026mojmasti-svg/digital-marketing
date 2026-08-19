@@ -26,7 +26,7 @@ type Props = {
  */
 export function RealPhoto({ src, alt, className = "", decorative = false, priority = false, sizes = "100vw" }: Props) {
   return (
-    <div className={className}>
+    <div className={`overflow-hidden ${className}`}>
       <div className="relative h-full w-full overflow-hidden bg-bone-dim">
         <Image
           src={src}

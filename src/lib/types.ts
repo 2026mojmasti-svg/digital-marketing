@@ -20,6 +20,8 @@ export type Review = {
   date: string;
   /** Seeds the deterministic AvatarArt illustration standing in for a customer photo. */
   avatarSeed: number;
+  /** Real customer photo (local path under public/), used in place of AvatarArt when set. */
+  avatarPhoto?: string;
 };
 
 /** Flat-sketch silhouette this image should render as art. */

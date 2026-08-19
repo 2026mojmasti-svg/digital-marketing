@@ -6,7 +6,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PdpGallerySection } from "@/components/PdpGallerySection";
 import { Accordion } from "@/components/Accordion";
 import { ProductCard } from "@/components/ProductCard";
-import { AvatarArt } from "@/components/art/AvatarArt";
+import { ReviewAvatar } from "@/components/ReviewAvatar";
 import { ReviewStars } from "@/components/ReviewStars";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { PdpViewTracker } from "@/components/PdpViewTracker";
@@ -93,8 +93,9 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
           <ul className="mt-6 space-y-6 border-t border-line pt-6">
             {product.reviews.map((r) => (
               <li key={r.id} className="flex gap-4 border-b border-line pb-6">
-                <AvatarArt
+                <ReviewAvatar
                   seed={r.avatarSeed}
+                  photo={r.avatarPhoto}
                   alt={`${r.author}'s profile photo`}
                   className="h-10 w-10 shrink-0 rounded-full"
                 />
@@ -118,8 +119,9 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
           <ul className="grid grid-cols-3 gap-2">
             {product.reviews.slice(0, 3).map((r) => (
               <li key={r.id} className="aspect-square">
-                <AvatarArt
+                <ReviewAvatar
                   seed={r.avatarSeed + 200}
+                  photo={r.avatarPhoto}
                   alt={`${r.author} wearing the ${product.name}`}
                   className="h-full w-full"
                 />

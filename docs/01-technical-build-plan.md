@@ -80,6 +80,40 @@ and the decisions behind it.
   `EditorialImage` shape (`alt`, `tone` as a loading-state/fallback
   color) — no page-level changes, since the aspect-ratio containers are
   already correct.
+
+  **Update 2:** a second batch of 28 candidate photos was supplied
+  (self-attributed as sourced from Unsplash), this time including people
+  portraits (for review/UGC avatars) and knitwear product shots. 6 were
+  excluded before use: a jeans close-up with a legible "Madewell" waistband
+  label, a bag with "ASHOKA" embossed on the flap, a shirt with a legible
+  "NET…" neck tag, a folded shirt with a legible "nimble made" tag, and two
+  graphic tees with printed brand-style slogans ("TÂY SƠN brotherhood" and
+  "ACTIVE SEASON / Move Your Soul") — all real or real-looking third-party
+  branding, the same category of risk as the Gucci/Ferragamo exclusions
+  above. The remaining 22 were saved under `public/images/`:
+  - `Review.avatarPhoto` (optional, on top of the existing `avatarSeed`) —
+    a real customer photo, used in place of the illustrated avatar when
+    set. `src/components/ReviewAvatar.tsx` picks between the two: real
+    photo via `RealPhoto` when `avatarPhoto` is set, `AvatarArt` otherwise.
+    Wired into 5 reviews spread across categories (one per product family:
+    outerwear, knitwear, daily wear, and two party-wear), left illustrated
+    everywhere else — deliberately partial, matching how a real UGC/review
+    section mixes photographed and non-photographed customers rather than
+    forcing every avatar to a stock photo.
+  - `UGCGrid` ("Worn by You" on the homepage) — now renders 6 real people
+    photos via `RealPhoto` instead of `AvatarArt`, since this section
+    doesn't need to correspond to any specific product or review.
+  - The Knitwear category tile (previously the one category with no
+    `photo`) now has one — a crochet cardigan shot, editorial/mood use
+    like the rest of the category tiles, not tied to a specific SKU.
+  - The `cold-weather-layering-guide` Journal post (previously photo-less)
+    now uses a knit sweater photo matching its `sweater`/`rib` tone.
+
+  Not used: several more people portraits, two denim/street-style editorial
+  shots, three travel/resort lookbook-style shots, and four more
+  accessories product photos (bags, a scarf, a hat) — saved as candidates
+  but not force-fit into a slot without a genuine content match, per the
+  same discipline as Update 1.
 - **State:** Zustand (`src/lib/store.ts`) for cart and wishlist — client
   state that must persist across route changes and survive a refresh
   (`persist` middleware → localStorage). Filter/sort state lives in the URL
