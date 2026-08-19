@@ -42,6 +42,18 @@ export function breadcrumbJsonLd(items: Crumb[]) {
   };
 }
 
+export function faqJsonLd(items: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
+}
+
 export function productJsonLd(product: Product) {
   const inStock = product.variants.some((v) => v.inStock);
   return {

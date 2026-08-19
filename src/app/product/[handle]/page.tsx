@@ -71,7 +71,15 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
               { title: "Care", content: <p>{product.care}</p> },
               {
                 title: "Shipping & Returns",
-                content: <p>Free shipping on orders over ₹2,999. Free returns within 30 days of delivery.</p>,
+                content: (
+                  <p>
+                    Free shipping on orders over ₹2,999. Free returns within 30 days of delivery.{" "}
+                    <Link href="/faq#shipping" className="underline underline-offset-2 hover:text-accent-text">
+                      Full shipping &amp; returns policy
+                    </Link>
+                    .
+                  </p>
+                ),
               },
             ]}
           />

@@ -39,13 +39,18 @@ export function Footer() {
             <h2 className="text-xs uppercase tracking-wider text-ink-soft/70">Help</h2>
             <ul className="mt-4 space-y-2">
               <li>
-                <Link href="/cart" className="nav-link text-sm">
+                <Link href="/faq#shipping" className="nav-link text-sm">
                   Shipping &amp; Returns
                 </Link>
               </li>
               <li>
-                <Link href="/account" className="nav-link text-sm">
+                <Link href="/faq#sizing" className="nav-link text-sm">
                   Size Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/faq" className="nav-link text-sm">
+                  FAQ
                 </Link>
               </li>
             </ul>

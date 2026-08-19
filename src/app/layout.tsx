@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
+import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { WebVitalsReporter } from "@/components/WebVitalsReporter";
@@ -33,12 +34,12 @@ export const metadata: Metadata = {
     template: "%s | Ferrous",
   },
   description:
-    "Ferrous is a fashion house for considered clothing — editorial outerwear, tailoring, and knitwear, shot and sold like a magazine, not a template.",
+    "Ferrous is a fashion house for considered clothing — daily wear, party wear, outerwear, tailoring, knitwear, and accessories, priced mid-range and sold like a magazine, not a template.",
   openGraph: {
     type: "website",
     siteName: "Ferrous",
     title: "Ferrous — Considered Clothing",
-    description: "Editorial outerwear, tailoring, and knitwear.",
+    description: "Daily wear to party wear, considered clothing at mid-range prices.",
   },
   twitter: {
     card: "summary_large_image",
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <JsonLd data={organizationJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
         <WebVitalsReporter />
+        <AnnouncementBar />
         <Header />
         <main id="main" className="flex-1">
           {children}

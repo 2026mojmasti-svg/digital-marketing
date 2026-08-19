@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FilterSidebar } from "@/components/FilterSidebar";
 import { ProductGridWithLoadMore } from "@/components/ProductGridWithLoadMore";
@@ -47,6 +48,7 @@ export default async function CategoryPage({
   const products = sortProducts(filtered, (sp.sort as SortKey) ?? "featured");
 
   const crumbs = [{ label: "Home", href: "/" }, { label: "Shop", href: "/shop" }, { label: cat.label }];
+  const otherCategories = CATEGORIES.filter((c) => c.slug !== cat.slug);
 
   return (
     <div className="mx-auto max-w-[1600px] px-5 py-10 md:px-10">
@@ -62,6 +64,22 @@ export default async function CategoryPage({
           <ProductGridWithLoadMore products={products} listName={cat.label} />
         </div>
       </div>
+
+      <nav aria-label="Other categories" className="mt-20 border-t border-line pt-8">
+        <h2 className="text-xs uppercase tracking-wider text-ink-soft/70">Explore Other Categories</h2>
+        <ul className="mt-4 flex flex-wrap gap-3">
+          {otherCategories.map((c) => (
+            <li key={c.slug}>
+              <Link
+                href={`/shop/${c.slug}`}
+                className="border border-ink px-4 py-2 text-sm transition-colors hover:bg-ink hover:text-bone"
+              >
+                {c.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   );
 }
