@@ -109,11 +109,38 @@ and the decisions behind it.
   - The `cold-weather-layering-guide` Journal post (previously photo-less)
     now uses a knit sweater photo matching its `sweater`/`rib` tone.
 
-  Not used: several more people portraits, two denim/street-style editorial
-  shots, three travel/resort lookbook-style shots, and four more
-  accessories product photos (bags, a scarf, a hat) — saved as candidates
-  but not force-fit into a slot without a genuine content match, per the
-  same discipline as Update 1.
+  Not used: two travel/resort lookbook-style shots (a floral dress and a
+  pleated skirt, both by the sea) and one more accessories product photo
+  (a backpack) — saved as candidates but not used yet.
+
+  **Update 3:** the user explicitly asked for product-listing cards
+  (`ProductCard`, shown on `/shop` and `/shop/[category]`) to show real
+  photography instead of the SVG illustration, e.g. seeing an actual skirt
+  photo when browsing Party Wear. This is a deliberate change from Updates
+  1–2's rule of never attaching a photo to a specific product's own
+  `images` array unless it was an exact color/style match — the user
+  understands this is a fictional/academic build and wants the visual
+  upgrade even where a photo is a stylistic match rather than a literal
+  SKU match (e.g. the "Sequin Mini Dress" — rendered as a black/gold
+  sequin skirt shape — now uses a real photo of a black pleated skirt, not
+  a sequin one).
+
+  A third 10-photo batch was supplied for this pass; 1 was excluded (a
+  scarf with a visible Gucci GG monogram print, same reasoning as the
+  earlier Gucci/Ferragamo exclusions). Of the remaining 9, 5 are wired in;
+  4 are unused (a grey satchel, a teal bag with glasses, three croc-effect
+  bags styled together, and a woman in a cream wrap skirt) — accessories
+  photos beyond what the 2-product Accessories category needed, saved as
+  candidates. Combined with unused photos from Updates 1–2, 15 of the 16
+  products in `PRODUCTS` now have a real photo
+  on `images[0]` (and `images[1]`, kept identical or matched so the
+  `ProductCard` hover crossfade never blends a photo into an illustration)
+  — the one exception is the Wide-Leg Wool Trouser, left illustrated
+  because no supplied photo is trouser-appropriate. Detail/back frames
+  (`images[2]`/`images[3]`, PDP-gallery-only, not used in the card
+  crossfade) got a photo only where a natural one existed (e.g. the trench
+  coat's button detail); otherwise they stay illustrated, which is fine
+  since the gallery already mixes distinct frames by design.
 - **State:** Zustand (`src/lib/store.ts`) for cart and wishlist — client
   state that must persist across route changes and survive a refresh
   (`persist` middleware → localStorage). Filter/sort state lives in the URL
