@@ -55,21 +55,20 @@ focus indicators (WCAG 2.4.11).
 
 ## Alt text strategy
 
-`StockImage` (`src/components/StockImage.tsx`) takes an explicit
-`decorative` prop:
-- `decorative={false}` (default): passes the real, descriptive `alt` text
-  straight through to the underlying `next/image` `<img>` ("Wool trench
-  coat, front view on model" — written per-image in `src/lib/data.ts`,
-  never a generic "product photo").
-- `decorative={true}`: renders `alt=""` and `aria-hidden="true"`, used for
-  the second (crossfade) image in `ProductCard` and gallery thumbnails,
+`GarmentArt` and `FigureArt` (`src/components/art/`) both take an explicit
+`decorative` prop, applied to their outer wrapper `<div>` (the SVG itself
+is always `aria-hidden`, since the div carries the semantics):
+- `decorative={false}` (default): `role="img"` + `aria-label` with the
+  real, descriptive alt text ("Wool trench coat, front view flat sketch" —
+  written per-image in `src/lib/data.ts`, never a generic "product photo").
+- `decorative={true}`: `aria-hidden="true"`, no label — used for the
+  second (crossfade) image in `ProductCard` and for gallery thumbnails,
   where the primary image already carries the description and a repeated
   announcement would be noise for screen-reader users.
 
-This holds regardless of whether the photo loads: on a failed fetch,
-`StockImage` drops back to the gradient-only background div, which is
-still labeled by the same alt/aria-hidden logic on the component, so a
-broken image never surfaces as unlabeled content to assistive tech.
+Because this build renders illustration rather than photography, there's
+no failed-fetch case to design a fallback for — the alt-text strategy
+above is the only state that exists, not a happy path plus a degraded one.
 
 ## Forms, errors, and live regions
 

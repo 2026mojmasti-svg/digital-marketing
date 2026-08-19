@@ -6,6 +6,8 @@ import { useMounted } from "@/lib/useMounted";
 import { PriceDisplay } from "@/components/PriceDisplay";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ExitIntentSaveCart } from "@/components/ExitIntentSaveCart";
+import { EditorialArt } from "@/components/art/EditorialArt";
+import { getProductByHandle } from "@/lib/data";
 import { trackEvent } from "@/lib/analytics";
 
 export default function CartPage() {
@@ -48,9 +50,15 @@ export default function CartPage() {
               </p>
             </div>
             <ul className="divide-y divide-line">
-              {lines.map((line) => (
+              {lines.map((line) => {
+                const lineProduct = getProductByHandle(line.handle);
+                return (
                 <li key={`${line.productId}-${line.size}-${line.color}`} className="flex gap-5 py-6">
-                  <div className="h-32 w-24 shrink-0 bg-bone-dim" />
+                  <div className="h-32 w-24 shrink-0 bg-bone-dim">
+                    {lineProduct ? (
+                      <EditorialArt image={lineProduct.images[0]} decorative className="h-full w-full" />
+                    ) : null}
+                  </div>
                   <div className="flex-1">
                     <div className="flex justify-between gap-2">
                       <Link href={`/product/${line.handle}`} className="font-serif text-lg hover:text-accent-text">
@@ -95,7 +103,8 @@ export default function CartPage() {
                     </div>
                   </div>
                 </li>
-              ))}
+                );
+              })}
             </ul>
           </div>
 

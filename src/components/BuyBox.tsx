@@ -1,14 +1,23 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Product } from "@/lib/types";
 import { PriceDisplay } from "./PriceDisplay";
 import { ReviewStars } from "./ReviewStars";
 import { SizeGuideModal } from "./SizeGuideModal";
 import { useCart, useWishlist } from "@/lib/store";
 import { trackEvent } from "@/lib/analytics";
+import { getColorTone } from "@/lib/colorTones";
 
-export function BuyBox({ product }: { product: Product }) {
+export function BuyBox({
+  product,
+  onColorChange,
+  onColorHover,
+}: {
+  product: Product;
+  onColorChange?: (color: string) => void;
+  onColorHover?: (color: string | null) => void;
+}) {
   const colors = Array.from(new Set(product.variants.map((v) => v.color)));
   const [color, setColor] = useState(colors[0]);
   const [size, setSize] = useState<string | null>(null);
@@ -16,6 +25,11 @@ export function BuyBox({ product }: { product: Product }) {
   const addItem = useCart((s) => s.addItem);
   const wishlisted = useWishlist((s) => s.has(product.id));
   const toggleWishlist = useWishlist((s) => s.toggle);
+
+  useEffect(() => {
+    onColorChange?.(color);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [color]);
 
   const sizesForColor = useMemo(
     () => product.variants.filter((v) => v.color === color),
@@ -51,22 +65,34 @@ export function BuyBox({ product }: { product: Product }) {
           Color — {color}
         </span>
         <div className="flex gap-2" role="group" aria-label="Select color">
-          {colors.map((c) => (
-            <button
-              key={c}
-              type="button"
-              aria-pressed={color === c}
-              onClick={() => {
-                setColor(c);
-                setSize(null);
-              }}
-              className={`border px-4 py-2 text-sm transition-colors ${
-                color === c ? "border-ink bg-ink text-bone" : "border-line hover:border-ink"
-              }`}
-            >
-              {c}
-            </button>
-          ))}
+          {colors.map((c) => {
+            const tone = getColorTone(c, product.images[0].tone);
+            return (
+              <button
+                key={c}
+                type="button"
+                aria-pressed={color === c}
+                onClick={() => {
+                  setColor(c);
+                  setSize(null);
+                }}
+                onMouseEnter={() => onColorHover?.(c)}
+                onMouseLeave={() => onColorHover?.(null)}
+                onFocus={() => onColorHover?.(c)}
+                onBlur={() => onColorHover?.(null)}
+                className={`flex items-center gap-2 border px-4 py-2 text-sm transition-colors ${
+                  color === c ? "border-ink bg-ink text-bone" : "border-line hover:border-ink"
+                }`}
+              >
+                <span
+                  aria-hidden="true"
+                  className="h-3 w-3 rounded-full border border-ink/20"
+                  style={{ backgroundImage: `linear-gradient(135deg, ${tone[0]}, ${tone[1]})` }}
+                />
+                {c}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -129,7 +155,7 @@ export function BuyBox({ product }: { product: Product }) {
       </div>
 
       <ul className="mt-6 space-y-1.5 border-t border-line pt-5 text-sm text-ink-soft/80">
-        <li>Free shipping on orders over ₹15,000</li>
+        <li>Free shipping on orders over ₹2,999</li>
         <li>Free returns within 30 days</li>
         <li>Ships in 1–2 business days</li>
       </ul>

@@ -2,35 +2,59 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { StockImage } from "./StockImage";
+import { EditorialArt } from "./art/EditorialArt";
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (mq.matches) return;
-    function onScroll() {
+
+    let scrollY = 0;
+    let mouseX = 0;
+    let mouseY = 0;
+
+    function paint() {
       if (!bgRef.current) return;
-      const y = window.scrollY;
-      bgRef.current.style.transform = `translateY(${y * 0.15}px) scale(1.08)`;
+      bgRef.current.style.transform = `translate(${mouseX}px, ${scrollY * 0.15 + mouseY}px) scale(1.08)`;
     }
+    function onScroll() {
+      scrollY = window.scrollY;
+      paint();
+    }
+    function onMouseMove(e: MouseEvent) {
+      const rect = sectionRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const relX = (e.clientX - rect.left) / rect.width - 0.5;
+      const relY = (e.clientY - rect.top) / rect.height - 0.5;
+      mouseX = relX * -18;
+      mouseY = relY * -12;
+      paint();
+    }
+    const section = sectionRef.current;
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    section?.addEventListener("mousemove", onMouseMove);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      section?.removeEventListener("mousemove", onMouseMove);
+    };
   }, []);
 
   return (
-    <section className="relative h-[92vh] min-h-[560px] overflow-hidden bg-ink">
+    <section ref={sectionRef} className="relative h-[92vh] min-h-[560px] overflow-hidden bg-ink">
       <div ref={bgRef} className="absolute inset-0">
-        <StockImage
-          query="fashion,model,coat,editorial"
-          seed={100}
-          tone={["#C25E3A", "#8C4128"]}
-          alt="Autumn campaign: a model in the Wool Trench Coat against a rust-toned backdrop"
-          priority
-          sizes="100vw"
-          width={1920}
-          height={1200}
+        <EditorialArt
+          image={{
+            alt: "Autumn campaign: an illustrated figure in the Wool Trench Coat against a rust-toned backdrop",
+            tone: ["#C25E3A", "#8C4128"],
+            garment: "trench",
+            pattern: "plain",
+            frame: "worn",
+            seed: 100,
+          }}
+          fit="contain"
           className="h-full w-full"
         />
       </div>

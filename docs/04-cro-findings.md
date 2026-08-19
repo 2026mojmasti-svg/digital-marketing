@@ -18,7 +18,7 @@ by the same `inventory` number the size selector uses, not a separate
 marketing flag, so it can't drift from reality into manipulative territory.
 
 **✅ Shipping/returns visible without a click.**
-The buy box ends with a static list — free shipping over ₹15,000, free
+The buy box ends with a static list — free shipping over ₹2,999, free
 30-day returns, 1–2 day dispatch — visible on page load, not behind an
 accordion.
 
@@ -34,8 +34,8 @@ layout change to `src/app/product/[handle]/page.tsx`, not a data change.
 ## Cart
 
 **✅ Free-shipping progress bar.** Both `CartDrawer` and `/cart` show a
-progress bar against `FREE_SHIPPING_THRESHOLD` (₹15,000) with the exact
-remaining amount ("Add ₹1,850 more for free shipping").
+progress bar against `FREE_SHIPPING_THRESHOLD` (₹2,999) with the exact
+remaining amount ("Add ₹350 more for free shipping").
 
 **✅ Inline quantity edit.** Quantity is a `<select>` inline per line item
 in both the drawer and the full cart page — no navigation required.

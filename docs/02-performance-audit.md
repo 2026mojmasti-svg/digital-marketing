@@ -5,29 +5,34 @@ repo's actual implementation.
 
 ## 1. Images
 
-**Status: implemented via `next/image`, with a graceful-degradation gap
-worth calling out.**
-- ✅ Every product/campaign image renders through `StockImage`
-  (`src/components/StockImage.tsx`), which wraps `next/image` (`fill`,
-  per-slot `sizes`, `priority` only on the hero/PDP-gallery/journal-hero
-  images actually above the fold) inside a fixed `aspect-[4/5]` /
-  `aspect-square` box, so CLS stays 0 regardless of whether the photo
-  loads. `next/image` serves AVIF→WebP→JPEG automatically based on the
-  request's `Accept` header — no manual `<picture>` needed.
-- ✅ The underlying photo source (LoremFlickr, real keyword-matched stock
-  photography, chosen because this build environment has no network
-  access to hand-verify specific asset URLs — see
-  `docs/01-technical-build-plan.md`) is not the risk it would be for CLS,
-  because the gradient+grain background renders immediately underneath
-  the `<Image>` on every load; the photo composites on top once it
-  arrives, it doesn't reflow anything into place.
-- ⚠️ **Gap:** swapping in licensed campaign photography means putting real
-  asset URLs in place of `stockPhotoUrl()`'s LoremFlickr construction (or
-  adding a `src` field to `EditorialImage` in `types.ts` and branching on
-  it) — at that point, also add `placeholder="blur"` +
-  `blurDataURL`/`blurhash` per image (generated at CMS-upload time), which
-  the current placeholder-photo setup deliberately skips since a blurred
-  gradient is already the loading state.
+**Status: best possible score by construction — there are no image bytes
+to optimize.**
+- ✅ All imagery (`src/components/art/`) is inline SVG generated from path
+  data already in the JS bundle — no `<img>`/`next/image` request, no
+  network round trip, no image-decode cost, nothing for a CDN or Vercel's
+  image-optimization pipeline to fail on. This directly replaced an
+  earlier version that hotlinked real stock photos: that approach shipped
+  fine in this dev environment but silently failed on most images once
+  deployed to Vercel (server-side image fetches to the third-party host
+  were unreliable), which is the actual bug the switch fixes — see
+  `docs/01-technical-build-plan.md`.
+- ✅ Every art component renders inside a fixed `aspect-[4/5]` /
+  `aspect-square` box sized before any content paints, so CLS stays 0 —
+  there's no loading state to design around, the SVG is present in the
+  same render pass as everything else on the page.
+- ✅ Each `EditorialImage` is a few dozen bytes of JSON (tone, garment
+  type, pattern, frame, seed) rather than a photo asset, so the payload
+  for a page with a full product grid is trivially small compared to any
+  photography-based catalog — this is a genuine LCP/total-transfer win,
+  not just a reliability one.
+- **Trade-off, stated plainly:** this is illustration, not photography.
+  Swapping in licensed campaign photography later means adding a `src`
+  field to `EditorialImage` and rendering `next/image` in place of (or
+  alongside, as a fallback) the art components — the aspect-ratio
+  containers don't need to change. At that point, follow the standard
+  `next/image` playbook: AVIF/WebP via `next/image`'s automatic format
+  negotiation, `placeholder="blur"` + `blurDataURL` per image, `priority`
+  only on above-the-fold images.
 
 ## 2. Fonts
 

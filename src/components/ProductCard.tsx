@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import type { Product } from "@/lib/types";
-import { StockImage } from "./StockImage";
+import { EditorialArt } from "./art/EditorialArt";
 import { PriceDisplay } from "./PriceDisplay";
 import { useCart } from "@/lib/store";
 import { trackEvent } from "@/lib/analytics";
@@ -37,24 +37,9 @@ export function ProductCard({ product, listName = "Product Grid" }: { product: P
         }
       >
         <div className="relative aspect-[4/5] overflow-hidden bg-bone-dim">
-          <StockImage
-            query={product.images[0].query}
-            seed={product.images[0].seed}
-            tone={product.images[0].tone}
-            alt={product.images[0].alt}
-            sizes="(min-width: 1024px) 33vw, 50vw"
-            className="absolute inset-0"
-          />
+          <EditorialArt image={product.images[0]} className="absolute inset-0" />
           {product.images[1] ? (
-            <StockImage
-              query={product.images[1].query}
-              seed={product.images[1].seed}
-              tone={product.images[1].tone}
-              alt=""
-              decorative
-              sizes="(min-width: 1024px) 33vw, 50vw"
-              className="crossfade-b absolute inset-0"
-            />
+            <EditorialArt image={product.images[1]} decorative className="crossfade-b absolute inset-0" />
           ) : null}
           {product.limitedDrop ? (
             <span className="absolute left-3 top-3 z-[2] bg-ink px-2.5 py-1 font-sans text-[11px] font-medium uppercase tracking-wider text-bone">

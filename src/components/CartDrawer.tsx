@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { useCart, cartTotal, FREE_SHIPPING_THRESHOLD } from "@/lib/store";
 import { PriceDisplay } from "./PriceDisplay";
+import { EditorialArt } from "./art/EditorialArt";
+import { getProductByHandle } from "@/lib/data";
 
 export function CartDrawer() {
   const isOpen = useCart((s) => s.isDrawerOpen);
@@ -96,9 +98,15 @@ export function CartDrawer() {
                 <p className="py-12 text-center text-sm text-ink-soft/70">Your bag is empty.</p>
               ) : (
                 <ul className="space-y-6">
-                  {lines.map((line) => (
+                  {lines.map((line) => {
+                    const lineProduct = getProductByHandle(line.handle);
+                    return (
                     <li key={`${line.productId}-${line.size}-${line.color}`} className="flex gap-4">
-                      <div className="h-24 w-20 shrink-0 bg-bone-dim" />
+                      <div className="h-24 w-20 shrink-0 bg-bone-dim">
+                        {lineProduct ? (
+                          <EditorialArt image={lineProduct.images[0]} decorative className="h-full w-full" />
+                        ) : null}
+                      </div>
                       <div className="flex-1">
                         <div className="flex justify-between gap-2">
                           <Link
@@ -144,7 +152,8 @@ export function CartDrawer() {
                         </div>
                       </div>
                     </li>
-                  ))}
+                    );
+                  })}
                 </ul>
               )}
             </div>

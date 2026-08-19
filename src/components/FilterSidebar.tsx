@@ -4,12 +4,12 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import type { SortKey } from "@/lib/data";
 
 const SIZES = ["XS", "S", "M", "L", "XL"];
-const COLORS = ["Bone", "Ink", "Rust", "Olive"];
+const COLORS = ["Bone", "Ink", "Rust", "Olive", "Denim Blue", "Indigo", "Berry", "Black"];
 const PRICE_CAPS = [
   { label: "Any price", value: "" },
-  { label: "Under ₹15,000", value: "15000" },
-  { label: "Under ₹25,000", value: "25000" },
-  { label: "Under ₹35,000", value: "35000" },
+  { label: "Under ₹1,500", value: "1500" },
+  { label: "Under ₹3,000", value: "3000" },
+  { label: "Under ₹5,000", value: "5000" },
 ];
 
 export function FilterSidebar() {

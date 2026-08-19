@@ -28,19 +28,35 @@ and the decisions behind it.
   shop-the-story pattern better than Contentful's stricter content-type
   model, and its Next.js integration (`next-sanity`) supports on-demand ISR
   revalidation via webhooks.
-- **Image handling:** no real campaign photography exists yet, so
-  `src/components/StockImage.tsx` sources real, keyword-relevant photos
-  from LoremFlickr (public, no API key, deterministic per `query`+`seed`)
-  through `next/image` (`fill`, per-slot `sizes`), layered over the
-  brand's gradient+grain treatment — the gradient renders immediately
-  (no blank flash while the photo loads) and becomes the permanent result
-  if a given photo ever fails to fetch, via the `<Image>` `onError`
-  handler. Swapping in licensed campaign photography later means changing
-  only `src` construction in that one component (or replacing `query`/
-  `seed` with a real asset URL per product in `data.ts`) — no layout or
-  page changes, since the aspect-ratio containers are already correct.
-  LoremFlickr is placeholder-grade stock imagery, not licensed brand
-  photography — swap it out before an actual launch.
+- **Image handling:** no real campaign photography exists yet. An earlier
+  pass tried sourcing real photos from a public hotlink service
+  (LoremFlickr) — it turned out unreliable in production (Vercel's
+  server-side image optimization frequently failed to fetch it, so most
+  slots silently fell back to a plain gradient). This build replaced that
+  with `src/components/art/` — a self-contained inline-SVG illustration
+  system with zero network dependency, so it can't fail the same way:
+  - `GarmentArt` — flat-sketch garment silhouettes (front/back/detail),
+    built from hand-authored SVG paths per `GarmentType` in
+    `silhouettes.ts`, filled with a fabric `<pattern>` (`Patterns.tsx`)
+    keyed to the product's `PatternType` (rib, quilt, houndstooth,
+    pinstripe, sequin, denim).
+  - `FigureArt` — an abstract croquis figure wearing the garment (the
+    "worn" frame), reusing the same silhouette data overlaid on a body
+    outline. Takes a `fit: "cover" | "contain"` prop — `"contain"` is
+    required for very wide containers (Hero, category tiles); `"cover"`
+    (default) crops to fill, which is correct for portrait-ish boxes but
+    would zoom in on just the torso in a wide one.
+  - `AvatarArt` — deterministic abstract customer-avatar illustrations
+    (varied hairstyle/skin tone/background by seed) standing in for
+    review and UGC "photos."
+  - `EditorialArt` — dispatches to `GarmentArt` or `FigureArt` based on
+    an `EditorialImage`'s `frame`.
+
+  Swapping in licensed campaign photography later means replacing these
+  components' internals with `next/image`, keeping the same
+  `EditorialImage` shape (`alt`, `tone` as a loading-state/fallback
+  color) — no page-level changes, since the aspect-ratio containers are
+  already correct.
 - **State:** Zustand (`src/lib/store.ts`) for cart and wishlist — client
   state that must persist across route changes and survive a refresh
   (`persist` middleware → localStorage). Filter/sort state lives in the URL
@@ -85,7 +101,7 @@ and the decisions behind it.
 ```
 /                          → Home
 /shop                      → All products, filter/sort via searchParams
-/shop/[category]           → Category listing (generateStaticParams over 4 categories)
+/shop/[category]           → Category listing (generateStaticParams over 6 categories)
 /product/[handle]          → PDP (generateStaticParams over all products, ISR)
 /cart                      → Full cart page
 /checkout                  → Single-page, 3-step checkout

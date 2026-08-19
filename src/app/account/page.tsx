@@ -8,8 +8,8 @@ import { ProductCard } from "@/components/ProductCard";
 import { PriceDisplay } from "@/components/PriceDisplay";
 
 const MOCK_ORDERS = [
-  { id: "FR-482913", date: "2026-07-28", status: "Delivered", total: 42900 },
-  { id: "FR-471205", date: "2026-06-14", status: "Delivered", total: 29800 },
+  { id: "FR-482913", date: "2026-07-28", status: "Delivered", total: 6990 },
+  { id: "FR-471205", date: "2026-06-14", status: "Delivered", total: 4280 },
 ];
 
 const STYLE_TAGS = ["Editorial", "Minimal", "Autumn Palette", "Outerwear-Led"];

@@ -3,11 +3,10 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { PRODUCTS, getProductByHandle, getRelatedProducts } from "@/lib/data";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { ImageGallery } from "@/components/ImageGallery";
-import { BuyBox } from "@/components/BuyBox";
+import { PdpGallerySection } from "@/components/PdpGallerySection";
 import { Accordion } from "@/components/Accordion";
 import { ProductCard } from "@/components/ProductCard";
-import { StockImage } from "@/components/StockImage";
+import { AvatarArt } from "@/components/art/AvatarArt";
 import { ReviewStars } from "@/components/ReviewStars";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { PdpViewTracker } from "@/components/PdpViewTracker";
@@ -58,11 +57,8 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
       <JsonLd data={breadcrumbJsonLd(crumbs)} />
       <Breadcrumbs items={crumbs} />
 
-      <div className="mt-6 grid grid-cols-1 gap-10 md:grid-cols-2 lg:gap-16">
-        <ImageGallery images={product.images} />
-        <div id="buy-box" className="md:sticky md:top-24 md:h-fit">
-          <BuyBox product={product} />
-        </div>
+      <div className="mt-6">
+        <PdpGallerySection product={product} />
       </div>
 
       <div className="mt-16 grid grid-cols-1 gap-16 md:grid-cols-2">
@@ -75,7 +71,7 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
               { title: "Care", content: <p>{product.care}</p> },
               {
                 title: "Shipping & Returns",
-                content: <p>Free shipping on orders over ₹15,000. Free returns within 30 days of delivery.</p>,
+                content: <p>Free shipping on orders over ₹2,999. Free returns within 30 days of delivery.</p>,
               },
             ]}
           />
@@ -88,15 +84,22 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
           </div>
           <ul className="mt-6 space-y-6 border-t border-line pt-6">
             {product.reviews.map((r) => (
-              <li key={r.id} className="border-b border-line pb-6">
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium">{r.title}</p>
-                  <ReviewStars rating={r.rating} reviewCount={0} hideCount />
+              <li key={r.id} className="flex gap-4 border-b border-line pb-6">
+                <AvatarArt
+                  seed={r.avatarSeed}
+                  alt={`${r.author}'s profile photo`}
+                  className="h-10 w-10 shrink-0 rounded-full"
+                />
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-medium">{r.title}</p>
+                    <ReviewStars rating={r.rating} reviewCount={0} hideCount />
+                  </div>
+                  <p className="mt-2 text-sm text-ink-soft/90">{r.body}</p>
+                  <p className="mt-2 text-xs text-ink-soft/60">
+                    {r.author} · {new Date(r.date).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+                  </p>
                 </div>
-                <p className="mt-2 text-sm text-ink-soft/90">{r.body}</p>
-                <p className="mt-2 text-xs text-ink-soft/60">
-                  {r.author} · {new Date(r.date).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
-                </p>
               </li>
             ))}
           </ul>
@@ -105,16 +108,11 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
             Worn by customers
           </h3>
           <ul className="grid grid-cols-3 gap-2">
-            {product.images.slice(0, 3).map((img, i) => (
-              <li key={i} className="aspect-square">
-                <StockImage
-                  query={img.query}
-                  seed={img.seed + 900}
-                  tone={img.tone}
-                  alt={`Customer photo wearing the ${product.name}`}
-                  sizes="33vw"
-                  width={600}
-                  height={600}
+            {product.reviews.slice(0, 3).map((r) => (
+              <li key={r.id} className="aspect-square">
+                <AvatarArt
+                  seed={r.avatarSeed + 200}
+                  alt={`${r.author} wearing the ${product.name}`}
                   className="h-full w-full"
                 />
               </li>

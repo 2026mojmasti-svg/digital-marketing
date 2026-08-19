@@ -23,7 +23,7 @@ Example (`productJsonLd`, trimmed):
     "@type": "Offer",
     "url": "https://ferrous-example.com/product/wool-trench-coat",
     "priceCurrency": "INR",
-    "price": 42900,
+    "price": 6990,
     "availability": "https://schema.org/InStock",
     "itemCondition": "https://schema.org/NewCondition"
   },

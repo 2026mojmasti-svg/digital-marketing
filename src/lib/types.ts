@@ -18,18 +18,51 @@ export type Review = {
   title: string;
   body: string;
   date: string;
-  photoAlt?: string;
+  /** Seeds the deterministic AvatarArt illustration standing in for a customer photo. */
+  avatarSeed: number;
 };
 
+/** Flat-sketch silhouette this image should render as art. */
+export type GarmentType =
+  | "trench"
+  | "fieldjacket"
+  | "blazer"
+  | "trouser"
+  | "sweater"
+  | "vest"
+  | "beltbag"
+  | "scarf"
+  | "tee"
+  | "shirt"
+  | "denim"
+  | "wrapdress"
+  | "slipdress"
+  | "partytop"
+  | "jumpsuit"
+  | "sequindress";
+
+/** Fabric fill rendered inside the silhouette via an SVG <pattern>. */
+export type PatternType = "plain" | "rib" | "quilt" | "houndstooth" | "pinstripe" | "sequin" | "denim";
+
 /**
- * `tone` is the gradient fallback (used while the photo loads and if it
- * ever fails to fetch); `query`/`seed` locate a real, keyword-relevant
- * photo via LoremFlickr — see src/components/StockImage.tsx.
+ * "front"/"back"/"detail" render the flat-sketch silhouette from different
+ * crops/angles; "worn" renders the abstract croquis figure wearing it —
+ * see src/components/art/GarmentArt.tsx and FigureArt.tsx.
+ */
+export type Frame = "front" | "back" | "detail" | "worn";
+
+/**
+ * `tone` drives every art component's palette. All imagery in this build is
+ * custom inline SVG (no photography, no external image host — see
+ * docs/01-technical-build-plan.md for why), so there's no separate photo
+ * URL/fallback to track.
  */
 export type EditorialImage = {
   alt: string;
   tone: [string, string];
-  query: string;
+  garment: GarmentType;
+  pattern: PatternType;
+  frame: Frame;
   seed: number;
 };
 
@@ -59,8 +92,8 @@ export type Category = {
   label: string;
   description: string;
   tone: [string, string];
-  query: string;
-  seed: number;
+  garment: GarmentType;
+  pattern: PatternType;
 };
 
 export type JournalPost = {
@@ -69,8 +102,8 @@ export type JournalPost = {
   dek: string;
   date: string;
   tone: [string, string];
-  query: string;
-  seed: number;
+  garment: GarmentType;
+  pattern: PatternType;
   body: string[];
   shopThe: string[]; // product handles referenced in the story
 };

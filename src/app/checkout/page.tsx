@@ -5,10 +5,12 @@ import { useState } from "react";
 import { useCart, cartTotal, FREE_SHIPPING_THRESHOLD } from "@/lib/store";
 import { useMounted } from "@/lib/useMounted";
 import { PriceDisplay } from "@/components/PriceDisplay";
+import { EditorialArt } from "@/components/art/EditorialArt";
+import { getProductByHandle } from "@/lib/data";
 import { trackEvent } from "@/lib/analytics";
 
 const STEPS = ["Information", "Shipping", "Payment"] as const;
-const SHIPPING_FLAT = 199;
+const SHIPPING_FLAT = 99;
 
 export default function CheckoutPage() {
   const lines = useCart((s) => s.lines);
@@ -293,17 +295,25 @@ export default function CheckoutPage() {
         <div className="h-fit border border-line p-6 lg:sticky lg:top-24">
           <h2 className="font-serif text-xl">Order Summary</h2>
           <ul className="mt-4 space-y-3 border-b border-line pb-4 text-sm">
-            {lines.map((line) => (
-              <li key={`${line.productId}-${line.size}-${line.color}`} className="flex justify-between gap-2">
-                <span className="text-ink-soft/80">
-                  {line.name} × {line.quantity}
-                  <span className="block text-xs text-ink-soft/60">
-                    {line.color} / {line.size}
+            {lines.map((line) => {
+              const lineProduct = getProductByHandle(line.handle);
+              return (
+                <li key={`${line.productId}-${line.size}-${line.color}`} className="flex items-center gap-3">
+                  <div className="h-14 w-11 shrink-0 bg-bone-dim">
+                    {lineProduct ? (
+                      <EditorialArt image={lineProduct.images[0]} decorative className="h-full w-full" />
+                    ) : null}
+                  </div>
+                  <span className="flex-1 text-ink-soft/80">
+                    {line.name} × {line.quantity}
+                    <span className="block text-xs text-ink-soft/60">
+                      {line.color} / {line.size}
+                    </span>
                   </span>
-                </span>
-                <PriceDisplay price={{ amount: line.price * line.quantity, currency: "INR" }} />
-              </li>
-            ))}
+                  <PriceDisplay price={{ amount: line.price * line.quantity, currency: "INR" }} />
+                </li>
+              );
+            })}
           </ul>
           <dl className="mt-4 space-y-2 text-sm">
             <div className="flex justify-between">

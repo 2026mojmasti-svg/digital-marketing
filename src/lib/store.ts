@@ -28,7 +28,7 @@ type CartState = {
   clear: () => void;
 };
 
-export const FREE_SHIPPING_THRESHOLD = 15000;
+export const FREE_SHIPPING_THRESHOLD = 2999;
 
 export const useCart = create<CartState>()(
   persist(

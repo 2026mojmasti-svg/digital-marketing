@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { CATEGORIES } from "@/lib/data";
-import { StockImage } from "./StockImage";
+import { EditorialArt } from "./art/EditorialArt";
 
 // Asymmetric sizing on purpose — breaks the predictable 3-up grid.
-const SPANS = ["md:col-span-7", "md:col-span-5", "md:col-span-5", "md:col-span-7"];
+const SPANS = ["md:col-span-7", "md:col-span-5", "md:col-span-4", "md:col-span-8", "md:col-span-6", "md:col-span-6"];
 
 export function CategoryTiles() {
   return (
@@ -18,14 +18,16 @@ export function CategoryTiles() {
             href={`/shop/${c.slug}`}
             className={`group relative block aspect-[16/9] overflow-hidden md:aspect-[4/3] ${SPANS[i]}`}
           >
-            <StockImage
-              query={c.query}
-              seed={c.seed}
-              tone={c.tone}
-              alt={`${c.label} category`}
-              sizes="(min-width: 768px) 60vw, 100vw"
-              width={1200}
-              height={900}
+            <EditorialArt
+              image={{
+                alt: `${c.label} category`,
+                tone: c.tone,
+                garment: c.garment,
+                pattern: c.pattern,
+                frame: "worn",
+                seed: i,
+              }}
+              fit="contain"
               className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
