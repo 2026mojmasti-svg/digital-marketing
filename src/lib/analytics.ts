@@ -16,14 +16,14 @@ type Item = {
 type EcommerceEvent =
   | { name: "view_item_list"; params: { item_list_name: string; items: Item[] } }
   | { name: "select_item"; params: { item_list_name: string; items: Item[] } }
-  | { name: "view_item"; params: { currency: "USD"; value: number; items: Item[] } }
-  | { name: "add_to_cart"; params: { currency: "USD"; value: number; items: Item[] } }
-  | { name: "remove_from_cart"; params: { currency: "USD"; value: number; items: Item[] } }
-  | { name: "add_to_wishlist"; params: { currency: "USD"; value: number; items: Item[] } }
-  | { name: "begin_checkout"; params: { currency: "USD"; value: number; items: Item[] } }
+  | { name: "view_item"; params: { currency: "INR"; value: number; items: Item[] } }
+  | { name: "add_to_cart"; params: { currency: "INR"; value: number; items: Item[] } }
+  | { name: "remove_from_cart"; params: { currency: "INR"; value: number; items: Item[] } }
+  | { name: "add_to_wishlist"; params: { currency: "INR"; value: number; items: Item[] } }
+  | { name: "begin_checkout"; params: { currency: "INR"; value: number; items: Item[] } }
   | {
       name: "purchase";
-      params: { currency: "USD"; value: number; transaction_id: string; shipping: number; items: Item[] };
+      params: { currency: "INR"; value: number; transaction_id: string; shipping: number; items: Item[] };
     };
 
 declare global {

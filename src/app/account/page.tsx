@@ -5,10 +5,11 @@ import { useMounted } from "@/lib/useMounted";
 import { PRODUCTS } from "@/lib/data";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ProductCard } from "@/components/ProductCard";
+import { PriceDisplay } from "@/components/PriceDisplay";
 
 const MOCK_ORDERS = [
-  { id: "FR-482913", date: "2026-07-28", status: "Delivered", total: 495 },
-  { id: "FR-471205", date: "2026-06-14", status: "Delivered", total: 305 },
+  { id: "FR-482913", date: "2026-07-28", status: "Delivered", total: 42900 },
+  { id: "FR-471205", date: "2026-06-14", status: "Delivered", total: 29800 },
 ];
 
 const STYLE_TAGS = ["Editorial", "Minimal", "Autumn Palette", "Outerwear-Led"];
@@ -56,7 +57,9 @@ export default function AccountPage() {
                 <td className="py-3">{o.id}</td>
                 <td className="py-3">{new Date(o.date).toLocaleDateString("en-US", { dateStyle: "medium" })}</td>
                 <td className="py-3">{o.status}</td>
-                <td className="py-3 text-right">${o.total.toFixed(2)}</td>
+                <td className="py-3 text-right">
+                  <PriceDisplay price={{ amount: o.total, currency: "INR" }} />
+                </td>
               </tr>
             ))}
           </tbody>

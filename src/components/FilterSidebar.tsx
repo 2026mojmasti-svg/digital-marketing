@@ -7,9 +7,9 @@ const SIZES = ["XS", "S", "M", "L", "XL"];
 const COLORS = ["Bone", "Ink", "Rust", "Olive"];
 const PRICE_CAPS = [
   { label: "Any price", value: "" },
-  { label: "Under $150", value: "150" },
-  { label: "Under $300", value: "300" },
-  { label: "Under $500", value: "500" },
+  { label: "Under ₹15,000", value: "15000" },
+  { label: "Under ₹25,000", value: "25000" },
+  { label: "Under ₹35,000", value: "35000" },
 ];
 
 export function FilterSidebar() {

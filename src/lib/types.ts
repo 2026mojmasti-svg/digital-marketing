@@ -1,6 +1,6 @@
 export type Money = {
   amount: number;
-  currency: "USD";
+  currency: "INR";
 };
 
 export type ProductVariant = {
@@ -21,6 +21,18 @@ export type Review = {
   photoAlt?: string;
 };
 
+/**
+ * `tone` is the gradient fallback (used while the photo loads and if it
+ * ever fails to fetch); `query`/`seed` locate a real, keyword-relevant
+ * photo via LoremFlickr — see src/components/StockImage.tsx.
+ */
+export type EditorialImage = {
+  alt: string;
+  tone: [string, string];
+  query: string;
+  seed: number;
+};
+
 export type Product = {
   id: string;
   handle: string;
@@ -35,7 +47,7 @@ export type Product = {
   care: string;
   colorway: string;
   variants: ProductVariant[];
-  images: { alt: string; tone: [string, string] }[];
+  images: EditorialImage[];
   limitedDrop?: boolean;
   reviews: Review[];
   rating: number;
@@ -47,6 +59,8 @@ export type Category = {
   label: string;
   description: string;
   tone: [string, string];
+  query: string;
+  seed: number;
 };
 
 export type JournalPost = {
@@ -55,6 +69,8 @@ export type JournalPost = {
   dek: string;
   date: string;
   tone: [string, string];
+  query: string;
+  seed: number;
   body: string[];
   shopThe: string[]; // product handles referenced in the story
 };

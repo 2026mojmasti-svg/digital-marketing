@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { JOURNAL_POSTS, getJournalPost, getProductByHandle } from "@/lib/data";
-import { ProductImage } from "@/components/ProductImage";
+import { StockImage } from "@/components/StockImage";
 import { ProductCard } from "@/components/ProductCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
@@ -46,7 +46,17 @@ export default async function JournalPostPage({ params }: { params: Promise<{ sl
       <p className="mt-4 font-serif text-xl italic text-ink-soft/80">{post.dek}</p>
 
       <div className="relative mt-8 aspect-[16/9] overflow-hidden">
-        <ProductImage tone={post.tone} alt={post.title} className="absolute inset-0" />
+        <StockImage
+          query={post.query}
+          seed={post.seed}
+          tone={post.tone}
+          alt={post.title}
+          priority
+          sizes="(min-width: 900px) 900px, 100vw"
+          width={1600}
+          height={900}
+          className="absolute inset-0"
+        />
       </div>
 
       <div className="prose-editorial mt-10 max-w-none space-y-6 text-base leading-relaxed">

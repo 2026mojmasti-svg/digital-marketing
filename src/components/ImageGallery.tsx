@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ProductImage } from "./ProductImage";
+import { StockImage } from "./StockImage";
 import type { Product } from "@/lib/types";
 
 export function ImageGallery({ images }: { images: Product["images"] }) {
@@ -23,7 +23,15 @@ export function ImageGallery({ images }: { images: Product["images"] }) {
                 active === i ? "border-ink" : "border-line hover:border-ink-soft"
               }`}
             >
-              <ProductImage tone={img.tone} alt="" decorative className="h-full w-full" />
+              <StockImage
+                query={img.query}
+                seed={img.seed}
+                tone={img.tone}
+                alt=""
+                decorative
+                sizes="80px"
+                className="h-full w-full"
+              />
             </button>
           ))}
         </div>
@@ -34,9 +42,13 @@ export function ImageGallery({ images }: { images: Product["images"] }) {
           aria-label={zoom ? "Zoom out of product image" : "Zoom into product image"}
           className="relative aspect-[4/5] w-full flex-1 cursor-zoom-in overflow-hidden bg-bone-dim"
         >
-          <ProductImage
+          <StockImage
+            query={images[active].query}
+            seed={images[active].seed}
             tone={images[active].tone}
             alt={images[active].alt}
+            priority
+            sizes="(min-width: 768px) 50vw, 100vw"
             className={`h-full w-full transition-transform duration-500 ${zoom ? "scale-150 cursor-zoom-out" : "scale-100"}`}
           />
         </button>
@@ -53,7 +65,15 @@ export function ImageGallery({ images }: { images: Product["images"] }) {
             onClick={() => setActive(i)}
             className={`aspect-[4/5] w-16 shrink-0 border ${active === i ? "border-ink" : "border-line"}`}
           >
-            <ProductImage tone={img.tone} alt="" decorative className="h-full w-full" />
+            <StockImage
+              query={img.query}
+              seed={img.seed}
+              tone={img.tone}
+              alt=""
+              decorative
+              sizes="64px"
+              className="h-full w-full"
+            />
           </button>
         ))}
       </div>

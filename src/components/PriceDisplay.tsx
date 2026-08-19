@@ -1,9 +1,11 @@
 import type { Money } from "@/lib/types";
 
 function format(money: Money) {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: money.currency }).format(
-    money.amount
-  );
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: money.currency,
+    maximumFractionDigits: 0,
+  }).format(money.amount);
 }
 
 export function PriceDisplay({

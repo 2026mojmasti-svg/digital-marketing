@@ -7,7 +7,7 @@ import { ImageGallery } from "@/components/ImageGallery";
 import { BuyBox } from "@/components/BuyBox";
 import { Accordion } from "@/components/Accordion";
 import { ProductCard } from "@/components/ProductCard";
-import { ProductImage } from "@/components/ProductImage";
+import { StockImage } from "@/components/StockImage";
 import { ReviewStars } from "@/components/ReviewStars";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { PdpViewTracker } from "@/components/PdpViewTracker";
@@ -75,7 +75,7 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
               { title: "Care", content: <p>{product.care}</p> },
               {
                 title: "Shipping & Returns",
-                content: <p>Free shipping on orders over $250. Free returns within 30 days of delivery.</p>,
+                content: <p>Free shipping on orders over ₹15,000. Free returns within 30 days of delivery.</p>,
               },
             ]}
           />
@@ -107,7 +107,16 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
           <ul className="grid grid-cols-3 gap-2">
             {product.images.slice(0, 3).map((img, i) => (
               <li key={i} className="aspect-square">
-                <ProductImage tone={img.tone} alt={`Customer photo wearing the ${product.name}`} className="h-full w-full" />
+                <StockImage
+                  query={img.query}
+                  seed={img.seed + 900}
+                  tone={img.tone}
+                  alt={`Customer photo wearing the ${product.name}`}
+                  sizes="33vw"
+                  width={600}
+                  height={600}
+                  className="h-full w-full"
+                />
               </li>
             ))}
           </ul>

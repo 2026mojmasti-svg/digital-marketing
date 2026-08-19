@@ -86,7 +86,7 @@ export function CartDrawer() {
               </div>
               <p className="mt-2 text-xs text-ink-soft/80">
                 {remaining > 0
-                  ? `Add $${remaining.toFixed(0)} more for free shipping.`
+                  ? `Add ₹${remaining.toLocaleString("en-IN")} more for free shipping.`
                   : "You've unlocked free shipping."}
               </p>
             </div>
@@ -109,7 +109,7 @@ export function CartDrawer() {
                             {line.name}
                           </Link>
                           <PriceDisplay
-                            price={{ amount: line.price * line.quantity, currency: "USD" }}
+                            price={{ amount: line.price * line.quantity, currency: "INR" }}
                             className="text-sm"
                           />
                         </div>
@@ -153,7 +153,7 @@ export function CartDrawer() {
               <div className="border-t border-line px-6 py-6">
                 <div className="mb-4 flex items-center justify-between text-sm">
                   <span>Subtotal</span>
-                  <PriceDisplay price={{ amount: total, currency: "USD" }} />
+                  <PriceDisplay price={{ amount: total, currency: "INR" }} />
                 </div>
                 <Link
                   href="/checkout"

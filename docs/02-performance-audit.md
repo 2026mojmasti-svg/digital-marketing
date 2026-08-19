@@ -5,31 +5,29 @@ repo's actual implementation.
 
 ## 1. Images
 
-**Status: partially addressed, one open gap.**
-- ✅ Every product/campaign image is rendered by `ProductImage`
-  (`src/components/ProductImage.tsx`) as a CSS gradient in a fixed
-  `aspect-[4/5]` / `aspect-square` box — zero image bytes shipped, zero
-  layout shift, since there's no real photography yet.
-- ⚠️ **Gap:** once real photography lands, `ProductImage` must be replaced
-  with `next/image`. Concrete fix:
-  ```tsx
-  <Image
-    src={image.src}
-    alt={image.alt}
-    fill
-    sizes="(min-width: 768px) 50vw, 100vw"
-    className="object-cover"
-    placeholder="blur"
-    blurDataURL={image.lqip}
-    priority={isAboveTheFold}
-  />
-  ```
-  Convert source assets to AVIF/WebP at build/CMS-upload time (Sanity's
-  image pipeline or a Squoosh/sharp step in CI); `next/image` auto-serves
-  AVIF→WebP→JPEG based on `Accept` headers, so no manual `<picture>` needed.
-  Keep the same `aspect-[4/5]` wrapper so CLS stays 0 — this is the one
-  change most likely to regress CLS if done carelessly (missing
-  `fill`/explicit dimensions).
+**Status: implemented via `next/image`, with a graceful-degradation gap
+worth calling out.**
+- ✅ Every product/campaign image renders through `StockImage`
+  (`src/components/StockImage.tsx`), which wraps `next/image` (`fill`,
+  per-slot `sizes`, `priority` only on the hero/PDP-gallery/journal-hero
+  images actually above the fold) inside a fixed `aspect-[4/5]` /
+  `aspect-square` box, so CLS stays 0 regardless of whether the photo
+  loads. `next/image` serves AVIF→WebP→JPEG automatically based on the
+  request's `Accept` header — no manual `<picture>` needed.
+- ✅ The underlying photo source (LoremFlickr, real keyword-matched stock
+  photography, chosen because this build environment has no network
+  access to hand-verify specific asset URLs — see
+  `docs/01-technical-build-plan.md`) is not the risk it would be for CLS,
+  because the gradient+grain background renders immediately underneath
+  the `<Image>` on every load; the photo composites on top once it
+  arrives, it doesn't reflow anything into place.
+- ⚠️ **Gap:** swapping in licensed campaign photography means putting real
+  asset URLs in place of `stockPhotoUrl()`'s LoremFlickr construction (or
+  adding a `src` field to `EditorialImage` in `types.ts` and branching on
+  it) — at that point, also add `placeholder="blur"` +
+  `blurDataURL`/`blurhash` per image (generated at CMS-upload time), which
+  the current placeholder-photo setup deliberately skips since a blurred
+  gradient is already the loading state.
 
 ## 2. Fonts
 

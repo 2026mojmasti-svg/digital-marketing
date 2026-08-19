@@ -55,15 +55,21 @@ focus indicators (WCAG 2.4.11).
 
 ## Alt text strategy
 
-`ProductImage` (`src/components/ProductImage.tsx`) takes an explicit
+`StockImage` (`src/components/StockImage.tsx`) takes an explicit
 `decorative` prop:
-- `decorative={false}` (default): renders `role="img"` + `aria-label` with
-  a real description ("Wool trench coat, front view on model" — descriptive,
-  written per-image in `src/lib/data.ts`, never a generic "product photo").
-- `decorative={true}`: renders `aria-hidden="true"`, used for the second
-  (crossfade) image in `ProductCard` and gallery thumbnails, where the
-  primary image already carries the description and a repeated
+- `decorative={false}` (default): passes the real, descriptive `alt` text
+  straight through to the underlying `next/image` `<img>` ("Wool trench
+  coat, front view on model" — written per-image in `src/lib/data.ts`,
+  never a generic "product photo").
+- `decorative={true}`: renders `alt=""` and `aria-hidden="true"`, used for
+  the second (crossfade) image in `ProductCard` and gallery thumbnails,
+  where the primary image already carries the description and a repeated
   announcement would be noise for screen-reader users.
+
+This holds regardless of whether the photo loads: on a failed fetch,
+`StockImage` drops back to the gradient-only background div, which is
+still labeled by the same alt/aria-hidden logic on the component, so a
+broken image never surfaces as unlabeled content to assistive tech.
 
 ## Forms, errors, and live regions
 

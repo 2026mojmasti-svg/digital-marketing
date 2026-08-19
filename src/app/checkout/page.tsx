@@ -1,15 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import { useCart, cartTotal } from "@/lib/store";
+import { useState } from "react";
+import { useCart, cartTotal, FREE_SHIPPING_THRESHOLD } from "@/lib/store";
 import { useMounted } from "@/lib/useMounted";
 import { PriceDisplay } from "@/components/PriceDisplay";
 import { trackEvent } from "@/lib/analytics";
 
 const STEPS = ["Information", "Shipping", "Payment"] as const;
-const SHIPPING_FLAT = 12;
-const TAX_RATE = 0.0875;
+const SHIPPING_FLAT = 199;
 
 export default function CheckoutPage() {
   const lines = useCart((s) => s.lines);
@@ -19,16 +18,16 @@ export default function CheckoutPage() {
   const mounted = useMounted();
 
   const subtotal = mounted ? cartTotal(lines) : 0;
-  const shipping = subtotal > 250 || subtotal === 0 ? 0 : SHIPPING_FLAT;
-  const tax = useMemo(() => Math.round(subtotal * TAX_RATE * 100) / 100, [subtotal]);
-  const total = subtotal + shipping + tax;
+  const shipping = subtotal > FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : SHIPPING_FLAT;
+  // MRP is GST-inclusive per Indian retail convention — no separate tax add-on.
+  const total = subtotal + shipping;
 
   function completeOrder() {
     const id = `FR-${Math.floor(100000 + Math.random() * 900000)}`;
     trackEvent({
       name: "purchase",
       params: {
-        currency: "USD",
+        currency: "INR",
         value: total,
         transaction_id: id,
         shipping,
@@ -302,7 +301,7 @@ export default function CheckoutPage() {
                     {line.color} / {line.size}
                   </span>
                 </span>
-                <PriceDisplay price={{ amount: line.price * line.quantity, currency: "USD" }} />
+                <PriceDisplay price={{ amount: line.price * line.quantity, currency: "INR" }} />
               </li>
             ))}
           </ul>
@@ -310,23 +309,21 @@ export default function CheckoutPage() {
             <div className="flex justify-between">
               <dt>Subtotal</dt>
               <dd>
-                <PriceDisplay price={{ amount: subtotal, currency: "USD" }} />
+                <PriceDisplay price={{ amount: subtotal, currency: "INR" }} />
               </dd>
             </div>
             <div className="flex justify-between">
               <dt>Shipping</dt>
-              <dd>{shipping === 0 ? "Free" : <PriceDisplay price={{ amount: shipping, currency: "USD" }} />}</dd>
+              <dd>{shipping === 0 ? "Free" : <PriceDisplay price={{ amount: shipping, currency: "INR" }} />}</dd>
             </div>
-            <div className="flex justify-between">
-              <dt>Tax (est.)</dt>
-              <dd>
-                <PriceDisplay price={{ amount: tax, currency: "USD" }} />
-              </dd>
+            <div className="flex justify-between text-ink-soft/70">
+              <dt>GST</dt>
+              <dd>Included</dd>
             </div>
             <div className="flex justify-between border-t border-line pt-2 font-medium">
               <dt>Total</dt>
               <dd>
-                <PriceDisplay price={{ amount: total, currency: "USD" }} />
+                <PriceDisplay price={{ amount: total, currency: "INR" }} />
               </dd>
             </div>
           </dl>

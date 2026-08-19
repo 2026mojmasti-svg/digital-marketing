@@ -28,12 +28,19 @@ and the decisions behind it.
   shop-the-story pattern better than Contentful's stricter content-type
   model, and its Next.js integration (`next-sanity`) supports on-demand ISR
   revalidation via webhooks.
-- **Image handling:** `next/image` is not in use yet because there is no
-  real photography — `src/components/ProductImage.tsx` renders a
-  gradient+grain placeholder in the exact aspect boxes real photography
-  would occupy. Swapping in real assets means replacing that component's
-  internals with `<Image fill sizes="..." />`; no layout changes, since the
-  aspect-ratio containers are already correct.
+- **Image handling:** no real campaign photography exists yet, so
+  `src/components/StockImage.tsx` sources real, keyword-relevant photos
+  from LoremFlickr (public, no API key, deterministic per `query`+`seed`)
+  through `next/image` (`fill`, per-slot `sizes`), layered over the
+  brand's gradient+grain treatment — the gradient renders immediately
+  (no blank flash while the photo loads) and becomes the permanent result
+  if a given photo ever fails to fetch, via the `<Image>` `onError`
+  handler. Swapping in licensed campaign photography later means changing
+  only `src` construction in that one component (or replacing `query`/
+  `seed` with a real asset URL per product in `data.ts`) — no layout or
+  page changes, since the aspect-ratio containers are already correct.
+  LoremFlickr is placeholder-grade stock imagery, not licensed brand
+  photography — swap it out before an actual launch.
 - **State:** Zustand (`src/lib/store.ts`) for cart and wishlist — client
   state that must persist across route changes and survive a refresh
   (`persist` middleware → localStorage). Filter/sort state lives in the URL

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JOURNAL_POSTS } from "@/lib/data";
-import { ProductImage } from "@/components/ProductImage";
+import { StockImage } from "@/components/StockImage";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
@@ -24,9 +24,12 @@ export default function JournalIndex() {
           <li key={post.slug}>
             <Link href={`/journal/${post.slug}`} className="group block">
               <div className="relative aspect-[4/5] overflow-hidden">
-                <ProductImage
+                <StockImage
+                  query={post.query}
+                  seed={post.seed}
                   tone={post.tone}
                   alt={post.title}
+                  sizes="(min-width: 768px) 33vw, 100vw"
                   className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
                 />
               </div>

@@ -129,7 +129,7 @@ export function BuyBox({ product }: { product: Product }) {
       </div>
 
       <ul className="mt-6 space-y-1.5 border-t border-line pt-5 text-sm text-ink-soft/80">
-        <li>Free shipping on orders over $250</li>
+        <li>Free shipping on orders over ₹15,000</li>
         <li>Free returns within 30 days</li>
         <li>Ships in 1–2 business days</li>
       </ul>
@@ -141,7 +141,7 @@ export function trackView(product: Product) {
   trackEvent({
     name: "view_item",
     params: {
-      currency: "USD",
+      currency: "INR",
       value: product.price.amount,
       items: [
         {

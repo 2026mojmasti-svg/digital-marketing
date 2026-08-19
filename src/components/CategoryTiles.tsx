@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CATEGORIES } from "@/lib/data";
-import { ProductImage } from "./ProductImage";
+import { StockImage } from "./StockImage";
 
 // Asymmetric sizing on purpose — breaks the predictable 3-up grid.
 const SPANS = ["md:col-span-7", "md:col-span-5", "md:col-span-5", "md:col-span-7"];
@@ -18,7 +18,16 @@ export function CategoryTiles() {
             href={`/shop/${c.slug}`}
             className={`group relative block aspect-[16/9] overflow-hidden md:aspect-[4/3] ${SPANS[i]}`}
           >
-            <ProductImage tone={c.tone} alt={`${c.label} category`} className="absolute inset-0 transition-transform duration-700 group-hover:scale-105" />
+            <StockImage
+              query={c.query}
+              seed={c.seed}
+              tone={c.tone}
+              alt={`${c.label} category`}
+              sizes="(min-width: 768px) 60vw, 100vw"
+              width={1200}
+              height={900}
+              className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 z-[2]">
               <h3 className="font-serif text-3xl text-bone">{c.label}</h3>

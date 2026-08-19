@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ProductImage } from "./ProductImage";
+import { StockImage } from "./StockImage";
 import { PRODUCTS } from "@/lib/data";
 
 export function LookbookSplit() {
@@ -8,9 +8,12 @@ export function LookbookSplit() {
   return (
     <section aria-labelledby="lookbook-heading" className="grid grid-cols-1 md:grid-cols-2">
       <div className="relative aspect-[4/5] md:aspect-auto">
-        <ProductImage
+        <StockImage
+          query="trenchcoat,street,fashion"
+          seed={101}
           tone={["#8C4128", "#3A2013"]}
           alt="Editorial shot: the autumn collection styled on location"
+          sizes="(min-width: 768px) 50vw, 100vw"
           className="absolute inset-0"
         />
       </div>

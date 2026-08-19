@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { StockImage } from "./StockImage";
 
 export function Hero() {
   const bgRef = useRef<HTMLDivElement>(null);
@@ -20,15 +21,20 @@ export function Hero() {
 
   return (
     <section className="relative h-[92vh] min-h-[560px] overflow-hidden bg-ink">
-      <div
-        ref={bgRef}
-        className="grain absolute inset-0"
-        style={{
-          backgroundImage: "linear-gradient(155deg, #C25E3A 0%, #8C4128 45%, #14120F 100%)",
-        }}
-        role="img"
-        aria-label="Autumn campaign: a model in the Wool Trench Coat against a rust-toned backdrop"
-      />
+      <div ref={bgRef} className="absolute inset-0">
+        <StockImage
+          query="fashion,model,coat,editorial"
+          seed={100}
+          tone={["#C25E3A", "#8C4128"]}
+          alt="Autumn campaign: a model in the Wool Trench Coat against a rust-toned backdrop"
+          priority
+          sizes="100vw"
+          width={1920}
+          height={1200}
+          className="h-full w-full"
+        />
+      </div>
+      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-ink/75 via-ink/10 to-transparent" />
       <div className="relative z-[2] mx-auto flex h-full max-w-[1600px] flex-col justify-end px-5 pb-16 md:px-10 md:pb-24">
         <p className="mb-3 text-xs uppercase tracking-[0.3em] text-bone/80">Autumn Collection — Chapter I</p>
         <h1 className="max-w-4xl font-serif text-[clamp(2.75rem,3vw+2.25rem,7.5rem)] leading-[0.95] text-bone">

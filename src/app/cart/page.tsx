@@ -43,7 +43,7 @@ export default function CartPage() {
               </div>
               <p className="mt-2 text-xs text-ink-soft/80">
                 {remaining > 0
-                  ? `Add $${remaining.toFixed(0)} more for free shipping.`
+                  ? `Add ₹${remaining.toLocaleString("en-IN")} more for free shipping.`
                   : "You've unlocked free shipping."}
               </p>
             </div>
@@ -56,7 +56,7 @@ export default function CartPage() {
                       <Link href={`/product/${line.handle}`} className="font-serif text-lg hover:text-accent-text">
                         {line.name}
                       </Link>
-                      <PriceDisplay price={{ amount: line.price * line.quantity, currency: "USD" }} />
+                      <PriceDisplay price={{ amount: line.price * line.quantity, currency: "INR" }} />
                     </div>
                     <p className="mt-1 text-sm text-ink-soft/70">
                       {line.color} / {line.size}
@@ -105,7 +105,7 @@ export default function CartPage() {
               <div className="flex justify-between">
                 <dt>Subtotal</dt>
                 <dd>
-                  <PriceDisplay price={{ amount: total, currency: "USD" }} />
+                  <PriceDisplay price={{ amount: total, currency: "INR" }} />
                 </dd>
               </div>
               <div className="flex justify-between text-ink-soft/70">
@@ -113,8 +113,8 @@ export default function CartPage() {
                 <dd>{remaining > 0 ? "Calculated at checkout" : "Free"}</dd>
               </div>
               <div className="flex justify-between text-ink-soft/70">
-                <dt>Tax</dt>
-                <dd>Calculated at checkout</dd>
+                <dt>GST</dt>
+                <dd>Included</dd>
               </div>
             </dl>
             <Link
@@ -123,7 +123,7 @@ export default function CartPage() {
                 trackEvent({
                   name: "begin_checkout",
                   params: {
-                    currency: "USD",
+                    currency: "INR",
                     value: total,
                     items: lines.map((l) => ({
                       item_id: l.productId,

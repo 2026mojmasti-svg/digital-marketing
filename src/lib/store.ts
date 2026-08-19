@@ -28,7 +28,7 @@ type CartState = {
   clear: () => void;
 };
 
-export const FREE_SHIPPING_THRESHOLD = 250;
+export const FREE_SHIPPING_THRESHOLD = 15000;
 
 export const useCart = create<CartState>()(
   persist(
@@ -65,7 +65,7 @@ export const useCart = create<CartState>()(
         trackEvent({
           name: "add_to_cart",
           params: {
-            currency: "USD",
+            currency: "INR",
             value: product.price.amount * quantity,
             items: [
               {
@@ -94,7 +94,7 @@ export const useCart = create<CartState>()(
           trackEvent({
             name: "remove_from_cart",
             params: {
-              currency: "USD",
+              currency: "INR",
               value: removed.price * removed.quantity,
               items: [
                 {
@@ -155,7 +155,7 @@ export const useWishlist = create<WishlistState>()(
           trackEvent({
             name: "add_to_wishlist",
             params: {
-              currency: "USD",
+              currency: "INR",
               value: product.price.amount,
               items: [
                 {
