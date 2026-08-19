@@ -8,6 +8,7 @@ export const CATEGORIES: Category[] = [
     tone: ["#5C7285", "#33465A"],
     garment: "denim",
     pattern: "denim",
+    photo: "/images/yellow-tracksuit-streetwear.jpg",
   },
   {
     slug: "party-wear",
@@ -16,6 +17,7 @@ export const CATEGORIES: Category[] = [
     tone: ["#7A2A3A", "#3E1420"],
     garment: "sequindress",
     pattern: "sequin",
+    photo: "/images/green-ruffle-dress.jpg",
   },
   {
     slug: "outerwear",
@@ -24,6 +26,7 @@ export const CATEGORIES: Category[] = [
     tone: ["#C25E3A", "#8C4128"],
     garment: "trench",
     pattern: "plain",
+    photo: "/images/grey-trench-coat-closeup.jpg",
   },
   {
     slug: "tailoring",
@@ -32,6 +35,7 @@ export const CATEGORIES: Category[] = [
     tone: ["#3A3C2E", "#14120F"],
     garment: "blazer",
     pattern: "pinstripe",
+    photo: "/images/white-oversized-blazer-walking.jpg",
   },
   {
     slug: "knitwear",
@@ -48,6 +52,7 @@ export const CATEGORIES: Category[] = [
     tone: ["#6E6259", "#2B2822"],
     garment: "beltbag",
     pattern: "plain",
+    photo: "/images/woven-leather-tote.jpg",
   },
 ];
 
@@ -530,6 +535,7 @@ export const JOURNAL_POSTS: JournalPost[] = [
     tone: ["#C25E3A", "#8C4128"],
     garment: "trench",
     pattern: "plain",
+    photo: "/images/grey-trench-coat-closeup.jpg",
     body: [
       "The trench is the rare coat that argues for itself in every context — thrown over tailoring for the office, cinched over knitwear for the weekend, left open over a slip dress for the evening.",
       "Our styling team pulled four looks built around the Wool Trench Coat, each restrained to a two-color base with one point of contrast.",
@@ -573,6 +579,7 @@ export const JOURNAL_POSTS: JournalPost[] = [
     tone: ["#5C7285", "#33465A"],
     garment: "denim",
     pattern: "denim",
+    photo: "/images/yellow-tracksuit-streetwear.jpg",
     body: [
       "The best daily uniform isn't a uniform at all — it's three or four pieces that all work with each other, so the decision is already made.",
       "Straight-Leg Denim plus the Essential Cotton Tee is the fastest outfit in the lineup; add the Everyday Poplin Shirt open over it the moment the weather turns.",
@@ -587,6 +594,7 @@ export const JOURNAL_POSTS: JournalPost[] = [
     tone: ["#7A2A3A", "#3E1420"],
     garment: "slipdress",
     pattern: "plain",
+    photo: "/images/cream-embroidered-dress.jpg",
     body: [
       "A party wardrobe doesn't need to be large — it needs one or two pieces that flex across the whole night's itinerary.",
       "The Satin Slip Dress goes from rooftop drinks (worn alone) to the dinner after (layered under the Raw-Hem Blazer) to the dance floor after that (blazer off, sleeves pushed up).",

@@ -26,6 +26,7 @@ export function CategoryTiles() {
                 pattern: c.pattern,
                 frame: "worn",
                 seed: i,
+                photo: c.photo,
               }}
               fit="contain"
               className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"

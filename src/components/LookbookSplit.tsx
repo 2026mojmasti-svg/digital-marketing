@@ -1,15 +1,19 @@
 import Link from "next/link";
-import { EditorialArt } from "./art/EditorialArt";
+import { RealPhoto } from "./RealPhoto";
 import { PRODUCTS } from "@/lib/data";
 
 export function LookbookSplit() {
   const trench = PRODUCTS.find((p) => p.handle === "wool-trench-coat")!;
-  const wornImage = trench.images.find((img) => img.frame === "worn") ?? trench.images[0];
 
   return (
     <section aria-labelledby="lookbook-heading" className="grid grid-cols-1 md:grid-cols-2">
       <div className="relative aspect-[4/5] md:aspect-auto">
-        <EditorialArt image={wornImage} className="absolute inset-0" />
+        <RealPhoto
+          src="/images/grey-trench-coat-closeup.jpg"
+          alt="Trench coat styling, editorial shot"
+          sizes="(min-width: 768px) 50vw, 100vw"
+          className="absolute inset-0"
+        />
       </div>
       <div className="flex flex-col justify-center bg-ink px-8 py-16 text-bone md:px-16">
         <p className="text-xs uppercase tracking-[0.3em] text-bone/70">Shop the Look</p>

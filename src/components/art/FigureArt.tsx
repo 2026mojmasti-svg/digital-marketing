@@ -36,39 +36,45 @@ export function FigureArt({ image, className = "", toneOverride, decorative = fa
 
   return (
     <div
-      className={`grain relative overflow-hidden bg-bone-dim ${className}`}
-      style={fit === "contain" ? { backgroundImage: `linear-gradient(155deg, ${tone[0]}33 0%, ${tone[1]}22 100%)` } : undefined}
+      className={className}
       role={decorative ? undefined : "img"}
       aria-label={decorative ? undefined : image.alt}
       aria-hidden={decorative ? true : undefined}
     >
-      <svg
-        viewBox={FIGURE_SILHOUETTE.viewBox}
-        className="h-full w-full"
-        preserveAspectRatio={fit === "contain" ? "xMidYMid meet" : "xMidYMid slice"}
-        aria-hidden="true"
+      {/* See GarmentArt for why the caller's positioning className and this
+          component's own layout classes are kept on separate elements. */}
+      <div
+        className="grain relative h-full w-full overflow-hidden bg-bone-dim"
+        style={fit === "contain" ? { backgroundImage: `linear-gradient(155deg, ${tone[0]}33 0%, ${tone[1]}22 100%)` } : undefined}
       >
-        <defs>
-          <FabricPattern id={patternId} type={image.pattern} tone={tone} />
-        </defs>
-        <path d={FIGURE_SILHOUETTE.arms} fill={skin} opacity="0.9" />
-        <path d={FIGURE_SILHOUETTE.path} fill={skin} />
-        <g transform={garmentPlacement(image.garment)}>
-          <path d={spec.path} fill={`url(#${patternId})`} stroke={tone[1]} strokeWidth="2.4" strokeLinejoin="round" />
-          {spec.details?.slice(0, 3).map((d, i) => (
-            <path
-              key={i}
-              d={d}
-              fill="none"
-              stroke={tone[1]}
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              opacity="0.7"
-            />
-          ))}
-        </g>
-      </svg>
+        <svg
+          viewBox={FIGURE_SILHOUETTE.viewBox}
+          className="h-full w-full"
+          preserveAspectRatio={fit === "contain" ? "xMidYMid meet" : "xMidYMid slice"}
+          aria-hidden="true"
+        >
+          <defs>
+            <FabricPattern id={patternId} type={image.pattern} tone={tone} />
+          </defs>
+          <path d={FIGURE_SILHOUETTE.arms} fill={skin} opacity="0.9" />
+          <path d={FIGURE_SILHOUETTE.path} fill={skin} />
+          <g transform={garmentPlacement(image.garment)}>
+            <path d={spec.path} fill={`url(#${patternId})`} stroke={tone[1]} strokeWidth="2.4" strokeLinejoin="round" />
+            {spec.details?.slice(0, 3).map((d, i) => (
+              <path
+                key={i}
+                d={d}
+                fill="none"
+                stroke={tone[1]}
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                opacity="0.7"
+              />
+            ))}
+          </g>
+        </svg>
+      </div>
     </div>
   );
 }

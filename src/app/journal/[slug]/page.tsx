@@ -54,7 +54,9 @@ export default async function JournalPostPage({ params }: { params: Promise<{ sl
             pattern: post.pattern,
             frame: "worn",
             seed: post.slug.length + 1,
+            photo: post.photo,
           }}
+          priority
           className="absolute inset-0"
         />
       </div>

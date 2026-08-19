@@ -25,13 +25,15 @@ export function AvatarArt({ seed, alt, className = "" }: { seed: number; alt: st
   const garment = GARMENT_TONES[seed % GARMENT_TONES.length];
 
   return (
-    <div className={`relative overflow-hidden ${className}`} role="img" aria-label={alt}>
-      <svg viewBox="0 0 100 100" className="h-full w-full" aria-hidden="true">
-        <rect width="100" height="100" fill={bg} />
-        <path d="M20,100 C20,76 33,64 50,64 C67,64 80,76 80,100 Z" fill={garment} />
-        <circle cx="50" cy="46" r="21" fill={skin} />
-        <path d={hairPath(seed % 5)} fill={hair} />
-      </svg>
+    <div className={`overflow-hidden ${className}`} role="img" aria-label={alt}>
+      <div className="relative h-full w-full overflow-hidden">
+        <svg viewBox="0 0 100 100" className="h-full w-full" aria-hidden="true">
+          <rect width="100" height="100" fill={bg} />
+          <path d="M20,100 C20,76 33,64 50,64 C67,64 80,76 80,100 Z" fill={garment} />
+          <circle cx="50" cy="46" r="21" fill={skin} />
+          <path d={hairPath(seed % 5)} fill={hair} />
+        </svg>
+      </div>
     </div>
   );
 }

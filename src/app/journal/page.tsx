@@ -32,6 +32,7 @@ export default function JournalIndex() {
                     pattern: post.pattern,
                     frame: "worn",
                     seed: post.slug.length,
+                    photo: post.photo,
                   }}
                   className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
                 />

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { EditorialArt } from "./art/EditorialArt";
+import { RealPhoto } from "./RealPhoto";
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -45,16 +45,11 @@ export function Hero() {
   return (
     <section ref={sectionRef} className="relative h-[92vh] min-h-[560px] overflow-hidden bg-ink">
       <div ref={bgRef} className="absolute inset-0">
-        <EditorialArt
-          image={{
-            alt: "Autumn campaign: an illustrated figure in the Wool Trench Coat against a rust-toned backdrop",
-            tone: ["#C25E3A", "#8C4128"],
-            garment: "trench",
-            pattern: "plain",
-            frame: "worn",
-            seed: 100,
-          }}
-          fit="contain"
+        <RealPhoto
+          src="/images/bw-oversized-coat-editorial.jpg"
+          alt="Autumn campaign: an oversized coat in dramatic black and white"
+          priority
+          sizes="100vw"
           className="h-full w-full"
         />
       </div>

@@ -52,10 +52,12 @@ export type PatternType = "plain" | "rib" | "quilt" | "houndstooth" | "pinstripe
 export type Frame = "front" | "back" | "detail" | "worn";
 
 /**
- * `tone` drives every art component's palette. All imagery in this build is
- * custom inline SVG (no photography, no external image host — see
- * docs/01-technical-build-plan.md for why), so there's no separate photo
- * URL/fallback to track.
+ * `tone` drives the SVG art components' palette, used for every slot that
+ * doesn't have a real photo. `photo` is an optional local path (under
+ * public/) to a real image for slots where one exists — set only where
+ * the photo is a genuine match for what's being shown; everything else
+ * stays illustrated rather than pairing a product with a photo of a
+ * different garment.
  */
 export type EditorialImage = {
   alt: string;
@@ -64,6 +66,7 @@ export type EditorialImage = {
   pattern: PatternType;
   frame: Frame;
   seed: number;
+  photo?: string;
 };
 
 export type Product = {
@@ -94,6 +97,7 @@ export type Category = {
   tone: [string, string];
   garment: GarmentType;
   pattern: PatternType;
+  photo?: string;
 };
 
 export type JournalPost = {
@@ -104,6 +108,7 @@ export type JournalPost = {
   tone: [string, string];
   garment: GarmentType;
   pattern: PatternType;
+  photo?: string;
   body: string[];
   shopThe: string[]; // product handles referenced in the story
 };

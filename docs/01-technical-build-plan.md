@@ -52,6 +52,29 @@ and the decisions behind it.
   - `EditorialArt` — dispatches to `GarmentArt` or `FigureArt` based on
     an `EditorialImage`'s `frame`.
 
+  **Update:** real photography has since been added for a subset of
+  slots. The user supplied 11 candidate photos (self-attributed as
+  sourced from Unsplash); 3 were excluded before use — one carried a
+  visible "Unsplash+" watermark (that tier requires a paid license, and a
+  watermarked image is explicitly not a licensed download), and two were
+  real photos of branded products with visible trademarks/logos (a
+  Gucci-monogram print, a Ferragamo bag with its nameplate legible) —
+  using either as this fictional brand's own product photography would
+  misrepresent an affiliation that doesn't exist. The remaining 8 are
+  saved under `public/images/` and wired in via `EditorialImage.photo`
+  (an optional local path) — `EditorialArt` renders `RealPhoto`
+  (`next/image`, local file, no network dependency at request time)
+  whenever `photo` is set, falling back to the SVG art otherwise.
+  Deliberately *not* attached to any product's own `images` array on the
+  PDP/product-card level: none of the 8 photos are an exact color/style
+  match for a specific SKU's purchasable variants, and showing a
+  different-colored version of a garment as if it were the literal
+  product photo would misrepresent what a customer is buying. They're
+  used instead in editorial/mood contexts where that distinction doesn't
+  apply — the hero, the lookbook module, 5 of 6 category tiles, and 3 of
+  5 journal covers. Full photographic coverage of the PDP galleries would
+  need one real photo per product/colorway, which wasn't available.
+
   Swapping in licensed campaign photography later means replacing these
   components' internals with `next/image`, keeping the same
   `EditorialImage` shape (`alt`, `tone` as a loading-state/fallback
