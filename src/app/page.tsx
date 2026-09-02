@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/Hero";
 import { LookbookSplit } from "@/components/LookbookSplit";
+import { ManifestoCarousel } from "@/components/ManifestoCarousel";
 import { NewArrivalsCarousel } from "@/components/NewArrivalsCarousel";
 import { CategoryTiles } from "@/components/CategoryTiles";
 import { FindYourFit } from "@/components/FindYourFit";
@@ -30,6 +31,7 @@ export default function Home() {
         </div>
       </section>
       <LookbookSplit />
+      <ManifestoCarousel />
       <NewArrivalsCarousel products={PRODUCTS.slice(0, 8)} />
       <CategoryTiles />
       <FindYourFit />
