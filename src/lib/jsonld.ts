@@ -10,8 +10,7 @@ export function organizationJsonLd() {
     "@type": "Organization",
     name: BRAND_NAME,
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
-    sameAs: ["https://instagram.com/ferrous.studio", "https://pinterest.com/ferrousstudio"],
+    sameAs: ["https://instagram.com/ferrous.studio"],
   };
 }
 
@@ -21,11 +20,6 @@ export function websiteJsonLd() {
     "@type": "WebSite",
     name: BRAND_NAME,
     url: SITE_URL,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${SITE_URL}/shop?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   };
 }
 
@@ -64,7 +58,7 @@ export function productJsonLd(product: Product) {
     sku: product.id,
     brand: { "@type": "Brand", name: BRAND_NAME },
     category: product.categoryLabel,
-    image: [`${SITE_URL}/og/product-${product.handle}.jpg`],
+    image: [`${SITE_URL}/product/${product.handle}/opengraph-image`],
     offers: {
       "@type": "Offer",
       url: `${SITE_URL}/product/${product.handle}`,

@@ -25,6 +25,10 @@ export async function generateMetadata({
     title: cat.label,
     description: `${cat.description} Shop ${cat.label.toLowerCase()} at Ferrous.`,
     alternates: { canonical: `/shop/${cat.slug}` },
+    openGraph: {
+      title: `${cat.label} | Ferrous`,
+      description: `${cat.description} Shop ${cat.label.toLowerCase()} at Ferrous.`,
+    },
   };
 }
 
