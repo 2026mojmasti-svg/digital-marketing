@@ -1,4 +1,5 @@
 import type { Product } from "./types";
+import { FERROUS_MAP_URL } from "./location.ts";
 import type { Crumb } from "@/components/Breadcrumbs";
 
 export const SITE_URL = "https://ferrous-example.com";
@@ -10,6 +11,7 @@ export function organizationJsonLd() {
     "@type": "Organization",
     name: BRAND_NAME,
     url: SITE_URL,
+    hasMap: FERROUS_MAP_URL,
     sameAs: ["https://instagram.com/ferrous.studio"],
   };
 }

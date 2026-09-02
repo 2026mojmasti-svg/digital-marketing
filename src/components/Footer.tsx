@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CATEGORIES } from "@/lib/data";
+import { FERROUS_MAP_URL } from "@/lib/location";
 import { Newsletter } from "./Newsletter";
 
 export function Footer() {
@@ -7,7 +8,7 @@ export function Footer() {
     <footer className="border-t border-line bg-bone">
       <div className="mx-auto max-w-[1600px] px-5 py-16 md:px-10">
         <Newsletter />
-        <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-5">
           <div>
             <h2 className="text-xs uppercase tracking-wider text-ink-soft/70">Shop</h2>
             <ul className="mt-4 space-y-2">
@@ -69,6 +70,20 @@ export function Footer() {
                 </a>
               </li>
             </ul>
+          </div>
+          <div>
+            <h2 className="text-xs uppercase tracking-wider text-ink-soft/70">Visit</h2>
+            <div className="mt-4 space-y-2 text-sm">
+              <p>FERROUS</p>
+              <a
+                href={FERROUS_MAP_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="nav-link text-sm"
+              >
+                Get directions
+              </a>
+            </div>
           </div>
         </div>
         <p className="mt-16 text-xs text-ink-soft/60">© {new Date().getFullYear()} Ferrous. All rights reserved.</p>
